@@ -1,0 +1,85 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0" version="24.7.17">
+  <diagram id="TerraformDiagram" name="Three-Tier Architecture">
+    <mxGraphModel dx="1434" dy="1612" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- VPC -->
+        <mxCell id="vpc" value="VPC" style="shape=rectangle;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="100" y="100" width="500" height="400" as="geometry" />
+        </mxCell>
+
+        <!-- Subnets -->
+        <mxCell id="public_subnet" value="Public Subnet" style="shape=rectangle;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="vpc">
+          <mxGeometry x="50" y="50" width="200" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="private_subnet_1" value="Private Subnet 1" style="shape=rectangle;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="vpc">
+          <mxGeometry x="300" y="50" width="200" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="private_subnet_2" value="Private Subnet 2" style="shape=rectangle;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="vpc">
+          <mxGeometry x="300" y="250" width="200" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- Internet Gateway -->
+        <mxCell id="igw" value="Internet Gateway" style="shape=cloud;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="vpc">
+          <mxGeometry x="100" y="300" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="igw_route" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;strokeColor=#000000;" edge="1" parent="1" source="public_subnet" target="igw">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- NAT Gateway -->
+        <mxCell id="nat_gw" value="NAT Gateway" style="shape=cloud;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="vpc">
+          <mxGeometry x="150" y="250" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nat_gw_route" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;strokeColor=#000000;" edge="1" parent="1" source="private_subnet_1" target="nat_gw">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nat_gw_route_2" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;strokeColor=#000000;" edge="1" parent="1" source="private_subnet_2" target="nat_gw">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Bastion Host -->
+        <mxCell id="bastion" value="Bastion Host" style="shape=ellipse;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="public_subnet">
+          <mxGeometry x="30" y="30" width="100" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Web Gateway -->
+        <mxCell id="web_gw" value="Web Gateway" style="shape=ellipse;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="public_subnet">
+          <mxGeometry x="30" y="110" width="100" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Database Server -->
+        <mxCell id="db" value="Database Server" style="shape=ellipse;fillColor=#cce5ff;strokeColor=#4a90e2;" vertex="1" parent="private_subnet_1">
+          <mxGeometry x="30" y="30" width="100" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Application Servers -->
+        <mxCell id="app_server_1" value="App Server 1" style="shape=ellipse;fillColor=#cce5ff;strokeColor=#4a90e2;" vertex="1" parent="private_subnet_1">
+          <mxGeometry x="150" y="30" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="app_server_2" value="App Server 2" style="shape=ellipse;fillColor=#cce5ff;strokeColor=#4a90e2;" vertex="1" parent="private_subnet_2">
+          <mxGeometry x="150" y="30" width="100" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Security Groups -->
+        <mxCell id="sg_bastion" value="SG: Bastion" style="shape=rectangle;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="bastion">
+          <mxGeometry x="10" y="80" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="sg_web_gw" value="SG: Web GW" style="shape=rectangle;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="web_gw">
+          <mxGeometry x="10" y="80" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="sg_internal" value="SG: Internal" style="shape=rectangle;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="private_subnet_1">
+          <mxGeometry x="10" y="100" width="100" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- SSM Role -->
+        <mxCell id="ssm_role" value="SSM Role" style="shape=rectangle;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="vpc">
+          <mxGeometry x="250" y="320" width="100" height="40" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
